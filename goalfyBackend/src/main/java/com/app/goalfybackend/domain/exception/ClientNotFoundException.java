@@ -6,14 +6,9 @@ public class ClientNotFoundException extends DomainException {
 
     private final Long clientId;
 
-    public ClientNotFoundException(Long clientId) {
+    public ClientNotFoundException(String message, Long clientId) {
 
         super(String.format("Cliente não encontrado"));
-        this.clientId = clientId;
-    }
-
-    public ClientNotFoundException(String message, Long clientId) {
-        super(message);
         this.clientId = clientId;
     }
 
