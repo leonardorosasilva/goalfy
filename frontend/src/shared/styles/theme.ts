@@ -7,7 +7,7 @@ export const theme = {
     white: '#FFFFFF',
     text: '#2C3E50', 
     textLight: '#666666',
-    border: '#E0E0E0',
+    border: '#F2F2F2',
     error: '#DC3545',
     success: '#28A745',
   },
@@ -24,7 +24,7 @@ export const theme = {
     lg: '12px',
   },
   fonts: {
-    family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    family: 'Red Hat Text',
   },
 };
 
