@@ -4,6 +4,14 @@ import styled from 'styled-components';
 import type { ClientFormData } from '../../../domain/entities/Client';
 import { ValidationService } from '../../../domain/services/validationService';
 import { useCep } from '../../../application/hooks/useCep';
+import { 
+  IoPersonOutline,
+  IoMailOutline,
+  IoCallOutline,
+  IoDocumentTextOutline,
+  IoLocationOutline,
+} from "react-icons/io5";
+import Registro from '../../../assets/reg.png';
 
 const ModalOverlay = styled.div<{ $isOpen: boolean }>`
   display: ${({ $isOpen }) => ($isOpen ? 'flex' : 'none')};
@@ -33,8 +41,9 @@ const ModalHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: ${({ theme }) => theme.spacing.lg};
+  padding: ${({ theme }) => theme.spacing.sm};
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  justify-content: flex-end;
 `;
 
 const HeaderLeft = styled.div`
@@ -46,23 +55,21 @@ const HeaderLeft = styled.div`
 const HeaderIcon = styled.div`
   width: 32px;
   height: 32px;
-  background-color: ${({ theme }) => theme.colors.primary};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   display: flex;
   align-items: center;
   justify-content: center;
   color: ${({ theme }) => theme.colors.white};
+  position: relative;
   
   svg {
-    width: 18px;
-    height: 18px;
-    fill: currentColor;
+    color: currentColor;
   }
 `;
 
 const ModalTitle = styled.h2`
-  font-size: 20px;
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.spacing.xl};
+  font-weight: 500;
   color: ${({ theme }) => theme.colors.text};
   margin: 0;
 `;
@@ -167,7 +174,7 @@ const SubmitButton = styled.button`
   border: none;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   font-size: 16px;
-  font-weight: 600;
+  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s;
 
@@ -192,54 +199,22 @@ interface ClientModalProps {
   initialData?: ClientFormData;
 }
 
-const SquareArrowIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2" fill="none"/>
-    <path d="M15 9L21 3M21 3H15M21 3V9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+
 
 const getInputIcon = (fieldName: string): React.ReactNode => {
   switch (fieldName) {
     case 'name':
-      return (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="2"/>
-        </svg>
-      );
+      return <IoPersonOutline size={18} />;
     case 'email':
-      return (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" strokeWidth="2"/>
-          <polyline points="22,6 12,13 2,6" stroke="currentColor" strokeWidth="2"/>
-        </svg>
-      );
+      return <IoMailOutline size={18} />;
     case 'telephone':
-      return (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      );
+      return <IoCallOutline size={18} />;
     case 'cnpj':
-      return (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" strokeWidth="2"/>
-          <polyline points="14,2 14,8 20,8" stroke="currentColor" strokeWidth="2"/>
-          <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" strokeWidth="2"/>
-          <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" strokeWidth="2"/>
-          <polyline points="10,9 9,9 8,9" stroke="currentColor" strokeWidth="2"/>
-        </svg>
-      );
+      return <IoDocumentTextOutline size={18} />;
     case 'address':
-      return (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor" strokeWidth="2"/>
-          <circle cx="12" cy="10" r="3" stroke="currentColor" strokeWidth="2"/>
-        </svg>
-      );
+      return <IoLocationOutline size={18} />;
     default:
-      return '📍';
+      return <IoLocationOutline size={18} />;
   }
 };
 
@@ -280,12 +255,10 @@ export const ClientModal: React.FC<ClientModalProps> = ({
     setErrors({});
   }, [isOpen, initialData]);
 
-  // Handler para campo de endereço
   const handleAddressInput = (value: string) => {
     handleChange('address', value);
   };
 
-  // Quando perder foco no endereço, tentar extrair e buscar CEP
   const handleAddressBlur = async () => {
     if (formData.address) {
       // Tentar extrair CEP do endereço (formato: 12345-678 ou 12345678)
@@ -330,7 +303,6 @@ export const ClientModal: React.FC<ClientModalProps> = ({
       e.preventDefault();
     }
     
-    // Garantir que CEP e Cidade tenham valores padrão se vazios
     const dataToSubmit = {
       ...formData,
       cep: formData.cep || '',
@@ -372,14 +344,14 @@ export const ClientModal: React.FC<ClientModalProps> = ({
     <ModalOverlay $isOpen={isOpen} onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
         <ModalHeader>
-          <HeaderLeft>
+          <CloseButton onClick={onClose}>×</CloseButton>
+        </ModalHeader>
+          <HeaderLeft style={{ paddingLeft: '24px', paddingTop: '24px' }}>
             <HeaderIcon>
-              <SquareArrowIcon />
+            <img src={Registro} alt="Document Icon" />
             </HeaderIcon>
             <ModalTitle>Novo Cliente</ModalTitle>
           </HeaderLeft>
-          <CloseButton onClick={onClose}>×</CloseButton>
-        </ModalHeader>
         <ModalBody>
           <Form onSubmit={handleSubmit}>
             <FormGroup>
@@ -458,7 +430,6 @@ export const ClientModal: React.FC<ClientModalProps> = ({
               {errors.address && <ErrorMessage>{errors.address}</ErrorMessage>}
             </FormGroup>
 
-            {/* Campo CEP oculto mas funcional - será preenchido automaticamente pelo endereço */}
             <FormGroup style={{ display: 'none' }}>
               <Label>CEP</Label>
               <InputContainer>
